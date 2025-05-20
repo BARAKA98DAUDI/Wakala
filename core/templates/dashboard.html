@@ -1,0 +1,273 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% trans "Dashboard" %} - {{ user.username }}</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-light">
+  <div class="container py-4">
+
+    <!-- Top bar -->
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+      <h2 class="text-primary mb-2 mb-md-0">
+        👋 {% trans "Welcome" %}, {{ user.username }}
+      </h2>
+
+
+      <!-- Action buttons -->
+      <div class="d-flex flex-column flex-md-row gap-2">
+        <div class="btn-group" role="group" aria-label="{% trans 'Transaction actions' %}">
+          <a href="{% url 'add_transaction' %}" class="btn btn-success">+ {% trans "Add Transaction" %}</a>
+          <a href="{% url 'transaction_history' %}" class="btn btn-outline-success">{% trans "History" %}</a>
+        </div>
+        <a href="{% url 'logout' %}" class="btn btn-outline-danger">{% trans "Logout" %}</a>
+      </div>
+    </div>
+
+    <!-- Language Switch Form -->
+   <form action="{% url 'set_language' %}" method="post">
+      {% csrf_token %}
+      <div class="d-flex align-items-center gap-2">
+        <label for="language-select" class="form-label mb-0">{% trans "Language" %}:</label>
+        <select name="language" id="language-select" class="form-select form-select-sm w-auto">
+          <option value="en">English</option>
+          <option value="sw">Kiswahili</option>
+          <option value="fr">Français</option>
+        </select>
+        <input type="submit" value="{% trans 'Switch' %}" class="btn btn-sm btn-primary" />
+      </div>
+    </form>
+
+    <!-- Wallet Float Warning -->
+    {% if missing_start_wallets %}
+    <div class="alert alert-warning fw-bold">
+      ⚠️ {% trans "Start‑of‑day float not set for:" %}
+      <ul class="mb-1">
+        {% for wallet_name in missing_start_wallets %}
+        <li>{{ wallet_name }}</li>
+        {% endfor %}
+      </ul>
+      <p class="mb-0">{% trans "Please set the start balance below." %}</p>
+    </div>
+    {% endif %}
+
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-secondary text-white fw-bold">📌 {% trans "Wallet Float Summary (Today)" %}</div>
+  <div class="card-body table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>{% trans "Network" %}</th>
+          <th>{% trans "Start Balance" %}</th>
+          <th>{% trans "Refill" %}</th>
+          <th>{% trans "Cash In" %}</th>
+          <th>{% trans "Cash Out" %}</th>
+          <th>{% trans "Today Balance" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in wallet_data %}
+        <tr>
+          <td class="d-flex align-items-center gap-2">
+            {% if data.wallet.network.logo %}
+              <img src="{{ data.wallet.network.logo.url }}" alt="{{ data.wallet.network.name }} logo" style="height:32px; width:32px; object-fit:contain; border-radius:4px;">
+            {% else %}
+              <span class="badge bg-secondary">{% trans "No logo" %}</span>
+            {% endif %}
+            <span>{{ data.wallet.network.name }}</span>
+          </td>
+          <td>{{ data.start }} TZS</td>
+          <td>{{ data.refill }} TZS</td>
+          <td>{{ data.cash_in }} TZS</td>
+          <td>{{ data.cash_out }} TZS</td>
+          <td><strong>{{ data.today_balance }} TZS</strong></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white fw-bold">🕘 {% trans "Set Start-of-Day Float" %}</div>
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <button class="btn btn-primary mt-3" type="submit">💾 {% trans "Save Start Balance" %}</button>
+    </form>
+  </div>
+</div>
+
+<form method="get" action="{% url 'dashboard' %}" class="row g-3 align-items-end mb-5">
+  <div class="col-12 col-md-3">
+    <label for="start_date" class="form-label">{% trans "Start Date:" %}</label>
+    <input type="date" id="start_date" name="start_date" class="form-control" value="{{ request.GET.start_date }}" />
+  </div>
+  <div class="col-12 col-md-3">
+    <label for="end_date" class="form-label">{% trans "End Date:" %}</label>
+    <input type="date" id="end_date" name="end_date" class="form-control" value="{{ request.GET.end_date }}" />
+  </div>
+  <div class="col-12 col-md-3">
+    <label for="network" class="form-label">{% trans "Network:" %}</label>
+    <select id="network" name="network" class="form-select">
+      <option value="">{% trans "All Networks" %}</option>
+      {% for network in available_networks %}
+      <option value="{{ network }}" {% if network == request.GET.network %}selected{% endif %}>{{ network }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-12 col-md-3 d-flex align-items-end">
+    <button type="submit" class="btn btn-primary w-100">{% trans "Filter" %}</button>
+  </div>
+</form>
+
+<h2 class="mb-4">📊 {% trans "Daily Analytics" %}</h2>
+<div class="card mb-4">
+  <div class="card-body text-center">
+    <div class="row">
+      <div class="col-md-3"><strong>{% trans "Today’s Cash In:" %}</strong><br />{{ today_in }} TZS</div>
+      <div class="col-md-3"><strong>{% trans "Today’s Cash Out:" %}</strong><br />{{ today_out }} TZS</div>
+      <div class="col-md-3"><strong>{% trans "Total Cash In:" %}</strong><br />{{ total_in }} TZS</div>
+      <div class="col-md-3"><strong>{% trans "Total Cash Out:" %}</strong><br />{{ total_out }} TZS</div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-secondary text-white fw-bold">💳 {% trans "Today's Float Overview" %}</div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>{% trans "Total Float Today:" %}</strong> {{ total_float_today }} TZS</p>
+        <p><strong>{% trans "Average Float Spent:" %}</strong> {{ average_float_spent|floatformat:2 }} TZS</p>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-group">
+          {% for item in float_per_network %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {% blocktrans with net=item.network refill=item.total_refill spent=item.total_spent float=item.today_float %}
+              {{ net }} — Refilled: {{ refill }} TZS, Spent: {{ spent }} TZS, Total Float: {{ float }} TZS
+            {% endblocktrans %}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-warning text-white fw-bold">🔄 {% trans "Recent Transactions" %}</div>
+  <ul class="list-group list-group-flush">
+    {% for tx in transactions %}
+    <li class="list-group-item">
+      {{ tx.timestamp|date:"M d, Y H:i" }} - <strong>{{ tx.wallet.network.name }}</strong> - {{ tx.type }} - {{ tx.amount }} TZS
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% if user.role == 'admin' or user.is_superuser %}
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white fw-bold">🔐 {% trans "Admin Panel" %}</div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><a href="/admin/">{% trans "Admin" %}</a></li>
+    <li class="list-group-item"><a href="{% url 'export_pdf' %}">📄 {% trans "Export PDF" %}</a></li>
+  </ul>
+</div>
+{% endif %}
+
+<div class="card mb-4">
+  <div class="card-header bg-success text-white fw-bold">📈 {% trans "Weekly Cash Flow" %}</div>
+  <div class="card-body">
+    <canvas id="transactionChart" height="100"></canvas>
+  </div>
+</div>
+
+ <div class="card mb-4">
+      <div class="card-header bg-primary text-white fw-bold">⬇️ {% trans "Export Options" %}</div>
+      <div class="card-body">
+          <a href="{% url 'export_pdf' %}" class="btn btn-outline-light btn-sm me-2">📄 {% trans "Export PDF" %}</a>
+          <a href="{% url 'export_excel' %}" class="btn btn-outline-light btn-sm">📊 {% trans "Export Excel" %}</a>
+      </div>
+  </div>
+
+  <div class="card mb-4">
+      <div class="card-header bg-dark text-white fw-bold">💳 {% trans "Float Management" %}</div>
+      <ul class="list-group list-group-flush">
+          <li class="list-group-item"><a href="{% url 'refill_wallet' %}">➕ {% trans "Add Float" %}</a></li>
+          <li class="list-group-item"><a href="{% url 'refill_history' %}">📜 {% trans "Float History" %}</a></li>
+          <li class="list-group-item">
+              {% trans "DOWNLOAD PDF:" %}
+              <a href="{% url 'generate_weekly_pdf' %}">📜 {% trans "Weekly" %}</a> |
+              <a href="{% url 'generate_daily_pdf' %}">📜 {% trans "Daily" %}</a>
+          </li>
+          {% if user.role == 'admin' or user.is_superuser %}
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white fw-bold">🔐 {% trans "Admin Panel" %}</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="/admin/">{% trans "Admin" %}</a></li>
+                    <li class="list-group-item"><a href="{% url 'export_pdf' %}">📄 {% trans "Export PDF" %}</a></li>
+                </ul>
+            </div>
+          {% endif %}
+      </ul>
+  </div>
+
+    
+</div>
+
+<script>
+  const labels = JSON.parse('{{ labels|safe|escapejs }}');
+  const cashInData = JSON.parse('{{ cash_in_data|safe|escapejs }}');
+  const cashOutData = JSON.parse('{{ cash_out_data|safe|escapejs }}');
+
+  const ctx = document.getElementById('transactionChart').getContext('2d');
+  const transactionChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Cash In',
+          data: cashInData,
+          backgroundColor: 'rgba(75, 192, 192, 0.7)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+        },
+        {
+          label: 'Cash Out',
+          data: cashOutData,
+          backgroundColor: 'rgba(255, 99, 132, 0.7)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+</script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+></script>
+
+</body>
+</html>

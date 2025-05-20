@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Add Transaction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f7;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+        .form-container {
+            background: white;
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #222;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin: 10px 0 5px;
+            font-weight: 600;
+            color: #444;
+        }
+        input, select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        a {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .errorlist {
+            color: red;
+            margin: 5px 0 10px;
+            list-style: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add Transaction</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+        <a href="{% url 'dashboard' %}">← Back to Dashboard</a>
+    </div>
+</body>
+</html>

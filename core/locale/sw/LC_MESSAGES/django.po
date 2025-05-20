@@ -1,0 +1,263 @@
+# KISWAHILI TRANSLATION FOR YOUR PROJECT.
+# Copyright (C) 2025 YOUR COMPANY/NAME
+# This file is distributed under the same license as the PACKAGE package.
+# Translator Name <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Wakala Management System 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-20 04:37+0300\n"
+"PO-Revision-Date: 2025-05-20 04:40+0300\n"
+"Last-Translator: Translator Name <EMAIL@ADDRESS>\n"
+"Language-Team: Kiswahili <sw@li.org>\n"
+"Language: sw\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Enter a valid monetary amount."
+msgstr "Weka kiasi sahihi cha pesa."
+
+msgid "Amount must be positive."
+msgstr "Kiasi lazima kiwe chanya."
+
+msgid "%(network)s – %(amount)s TZS on %(date)s"
+msgstr "%(network)s – %(amount)s TZS tarehe %(date)s"
+
+msgid "Dashboard - %(user.username)s"
+msgstr "Dashibodi - %(user.username)s"
+
+msgid "Welcome, %(user.username)s"
+msgstr "Karibu, %(user.username)s"
+
+msgid "Transaction actions"
+msgstr "Vitendo vya Muamala"
+
+msgid "Add Transaction"
+msgstr "Ongeza Muamala"
+
+msgid "History"
+msgstr "Historia"
+
+msgid "Logout"
+msgstr "Toka"
+
+msgid "Start‑of‑day float not set for:"
+msgstr "Salio la mwanzo wa siku halijawekwa kwa:"
+
+msgid "Please set the start balance below."
+msgstr "Tafadhali weka salio la mwanzo hapa chini."
+
+msgid "Wallet Float Summary (Today)"
+msgstr "Muhtasari wa Salio la Wallet (Leo)"
+
+msgid "Network"
+msgstr "Mtandao"
+
+msgid "Start Balance"
+msgstr "Salio la Mwanzo"
+
+msgid "Refill"
+msgstr "Jaza Tena"
+
+msgid "Cash In"
+msgstr "Pesa Inazoingia"
+
+msgid "Cash Out"
+msgstr "Pesa Zinazotoka"
+
+msgid "Today Balance"
+msgstr "Salio la Leo"
+
+msgid "No logo"
+msgstr "Hakuna nembo"
+
+msgid "Set Start-of-Day Float"
+msgstr "Weka Salio la Mwanzo wa Siku"
+
+msgid "Save Start Balance"
+msgstr "Hifadhi Salio la Mwanzo"
+
+msgid "Start Date:"
+msgstr "Tarehe ya Kuanza:"
+
+msgid "End Date:"
+msgstr "Tarehe ya Mwisho:"
+
+msgid "Network:"
+msgstr "Mtandao:"
+
+msgid "All Networks"
+msgstr "Mitandao Yote"
+
+msgid "Filter"
+msgstr "Chuja"
+
+msgid "Daily Analytics"
+msgstr "Takwimu za Kila Siku"
+
+msgid "Today’s Cash In:"
+msgstr "Pesa Inazoingia Leo:"
+
+msgid "Today’s Cash Out:"
+msgstr "Pesa Zinazotoka Leo:"
+
+msgid "Total Cash In:"
+msgstr "Jumla ya Pesa Inazoingia:"
+
+msgid "Total Cash Out:"
+msgstr "Jumla ya Pesa Zinazotoka:"
+
+msgid "Today's Float Overview"
+msgstr "Muhtasari wa Salio la Leo"
+
+msgid "Total Float Today:"
+msgstr "Jumla ya Salio Leo:"
+
+msgid "Average Float Spent:"
+msgstr "Wastani wa Salio Lililotumika:"
+
+msgid ""
+"\n"
+"              %(net)s — Refilled: %(refill)s TZS, Spent: %(spent)s TZS, "
+"Total Float: %(float)s TZS\n"
+"            "
+msgstr ""
+"\n"
+"              %(net)s — Imejazwa: %(refill)s TZS, Imetumika: %(spent)s TZS, "
+"Jumla ya Salio: %(float)s TZS\n"
+"            "
+
+msgid "Recent Transactions"
+msgstr "Miamala ya Hivi Karibuni"
+
+msgid "Admin Panel"
+msgstr "Jopo la Msimamizi"
+
+msgid "Admin"
+msgstr "Msimamizi"
+
+msgid "Export PDF"
+msgstr "Hamisha PDF"
+
+msgid "Weekly Cash Flow"
+msgstr "Mtiririko wa Pesa wa Wiki"
+
+msgid "Refill History"
+msgstr "Historia ya Kujaza"
+
+msgid "Date"
+msgstr "Tarehe"
+
+msgid "Amount (TZS)"
+msgstr "Kiasi (TZS)"
+
+msgid "No refill history found."
+msgstr "Hakuna historia ya kujaza iliyopatikana."
+
+msgid "Back to Dashboard"
+msgstr "Rudi kwenye Dashibodi"
+
+msgid "Float Refill"
+msgstr "Jaza Salio"
+
+msgid "User Registration"
+msgstr "Usajili wa Mtumiaji"
+
+msgid "Register"
+msgstr "Sajili"
+
+msgid "Already have an account?"
+msgstr "Tayari una akaunti?"
+
+msgid "Login"
+msgstr "Ingia"
+
+msgid "Transaction History"
+msgstr "Historia ya Miamala"
+
+msgid "All"
+msgstr "Yote"
+
+msgid "Type"
+msgstr "Aina"
+
+msgid "ID"
+msgstr "Nambari ya Utambulisho"
+
+msgid "Date/Time"
+msgstr "Tarehe/Muda"
+
+msgid "No transactions found."
+msgstr "Hakuna miamala iliyopatikana."
+
+msgid "You must set float for all your wallets before accessing the dashboard."
+msgstr "Lazima uweke salio kwa kila wallet yako kabla ya kufikia dashibodi."
+
+msgid "Invalid date format provided."
+msgstr "Umbizo la tarehe si sahihi."
+
+msgid "Wallet start balance updated successfully."
+msgstr "Salio la mwanzo la wallet limeboreshwa kikamilifu."
+
+msgid "Invalid form data submitted."
+msgstr "Fomu iliyowasilishwa ina makosa."
+
+msgid "Dashboard"
+msgstr "Dashibodi"
+
+msgid "Registration successful. Welcome!"
+msgstr "Usajili umefanikiwa. Karibu!"
+
+msgid "There was an error in your registration form."
+msgstr "Kulikuwa na kosa kwenye fomu yako ya usajili."
+
+msgid "Transaction saved!"
+msgstr "Muamala umehifadhiwa!"
+
+msgid "attachment; filename=\"transactions.pdf\""
+msgstr "kiambatisho; jina la faili=\"miamala.pdf\""
+
+msgid "PDF generation failed"
+msgstr "Uundaji wa PDF umeshindikana"
+
+msgid "Transactions"
+msgstr "Miamala"
+
+msgid "Amount"
+msgstr "Kiasi"
+
+msgid "N/A"
+msgstr "Haipatikani"
+
+msgid "attachment; filename=\"transactions.xlsx\""
+msgstr "kiambatisho; jina la faili=\"miamala.xlsx\""
+
+msgid "❌ Enter a valid monetary amount."
+msgstr "❌ Tafadhali weka kiasi halali cha pesa."
+
+msgid "✅ Refill successful and balance updated."
+msgstr "✅ Kujaza kumefanikiwa na salio limeboreshwa."
+
+msgid "✅ Start balances set successfully."
+msgstr "✅ Salio la mwanzo limewekwa kikamilifu."
+
+msgid "📊 Wakala Daily Summary Report"
+msgstr "📊 Ripoti ya Muhtasari ya Kila Siku ya Wakala"
+
+msgid "📊 Wakala Weekly Summary Report"
+msgstr "📊 Ripoti ya Muhtasari ya Kila Wiki ya Wakala"
+
+msgid "Date Range: "
+msgstr "Kipindi cha Tarehe: "
+
+msgid "Total Cash In: "
+msgstr "Jumla ya Pesa Inazoingia: "
+
+msgid "Total Cash Out: "
+msgstr "Jumla ya Pesa Zinazotoka: "
+
+msgid "Balance: "
+msgstr "Salio: "

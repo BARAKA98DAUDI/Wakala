@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 350px;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin: 10px 0 5px;
+            color: #555;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px;
+            background: #007bff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .register-link {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .register-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        .errorlist {
+            color: red;
+            margin: 5px 0 10px;
+            list-style: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            
+            <label for="id_username">Username:</label>
+            {{ form.username }}
+            {% for error in form.username.errors %}
+                <div class="errorlist">{{ error }}</div>
+            {% endfor %}
+            
+            <label for="id_password">Password:</label>
+            {{ form.password }}
+            {% for error in form.password.errors %}
+                <div class="errorlist">{{ error }}</div>
+            {% endfor %}
+            
+            <button type="submit">Login</button>
+        </form>
+        <div class="register-link">
+            Don't have an account? <a href="{% url 'register' %}">Register here</a>
+        </div>
+    </div>
+</body>
+</html>

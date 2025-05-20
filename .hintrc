@@ -1,0 +1,34 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "axe/language": [
+      "default",
+      {
+        "html-has-lang": "off"
+      }
+    ],
+    "meta-charset-utf-8": "off",
+    "meta-viewport": "off",
+    "axe/structure": [
+      "default",
+      {
+        "list": "off"
+      }
+    ],
+    "axe/text-alternatives": [
+      "default",
+      {
+        "document-title": "off"
+      }
+    ],
+    "no-inline-styles": "off",
+    "axe/forms": [
+      "default",
+      {
+        "label": "off"
+      }
+    ]
+  }
+}
